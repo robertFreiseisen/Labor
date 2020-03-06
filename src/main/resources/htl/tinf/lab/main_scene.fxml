@@ -17,11 +17,11 @@
       <ImageView fx:id="yellowPhilosopher" fitHeight="112.0" fitWidth="126.0" layoutX="476.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
       <Circle fill="#b29988" layoutX="384.0" layoutY="241.0" radius="140.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle layoutX="389.0" layoutY="135.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle layoutX="294.0" layoutY="185.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle layoutX="466.0" layoutY="325.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle layoutX="476.0" layoutY="185.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle layoutX="304.0" layoutY="320.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="buttonTop" layoutX="389.0" layoutY="135.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="buttonLeft" layoutX="294.0" layoutY="185.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="buttonDownRight" layoutX="466.0" layoutY="325.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="buttonRight" layoutX="476.0" layoutY="185.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="buttonDownLeft" layoutX="304.0" layoutY="320.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
       <AnchorPane layoutX="794.0" layoutY="-23.0" prefHeight="743.0" prefWidth="210.0" style="-fx-border-color: black;">
          <children>
             <Button fx:id="button_algoRandom" layoutX="43.0" layoutY="81.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="125.0" text="RAD" />

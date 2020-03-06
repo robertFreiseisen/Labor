@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable {
@@ -39,6 +40,18 @@ public class MainController implements Initializable {
     ImageView purplePhilosopher;
     @FXML
     ImageView redPhilosopher;
+
+    @FXML
+    Circle buttonTop;
+    @FXML
+    Circle buttonRight;
+    @FXML
+    Circle buttonLeft;
+    @FXML
+    Circle buttonDownLeft;
+    @FXML
+    Circle buttonDownRight;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
