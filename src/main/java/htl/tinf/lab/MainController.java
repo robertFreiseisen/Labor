@@ -3,6 +3,8 @@ package htl.tinf.lab;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -16,7 +18,10 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable {
@@ -51,6 +56,15 @@ public class MainController implements Initializable {
     Circle buttonDownLeft;
     @FXML
     Circle buttonDownRight;
+    @FXML
+    TextArea console;
+
+    ThreadFigure red;
+    ThreadFigure yellow;
+    ThreadFigure purple;
+    ThreadFigure green;
+    ThreadFigure blue;
+    ThreadFigure[] threads;
 
 
     @Override
@@ -61,20 +75,35 @@ public class MainController implements Initializable {
         purplePhilosopher.setImage(startImage(new File("images/purple.jpeg")));
         redPhilosopher.setImage(startImage(new File("images/red.jpeg")));
 
-        stop.setOnAction(a -> {
+        console.setEditable(false);
+        console.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
 
+        createThreads();
+
+
+        red.run();
+        yellow.run();
+        purple.run();
+        green.run();
+        blue.run();
+
+        stop.setOnAction(a -> {
+         reset();
         });
 
         button_algoSoluotion.setOnAction(a -> {
-
+                reset();
         });
 
         button_algoRandom.setOnAction(a -> {
-
+            reset();
         });
 
         button_algoDeadLock.setOnAction(a -> {
-
+            reset();
+            for (ThreadFigure thread :threads) {
+                thread.deadLock();
+            }
         });
 
     }
@@ -84,6 +113,30 @@ public class MainController implements Initializable {
         return image;
     }
 
+    private void createThreads(){
+        /*
+        ThreadFigure red;
+        ThreadFigure yellow;
+        ThreadFigure purple;
+        ThreadFigure green;
+        ThreadFigure blue;
+        */
+
+        red = new ThreadFigure(buttonLeft,buttonTop,console,Color.RED,"Red");
+        yellow =new ThreadFigure(buttonTop,buttonRight,console, Color.YELLOW,"Yellow");
+        purple = new ThreadFigure(buttonRight,buttonDownRight,console,Color.PURPLE,"Purple");
+        green = new ThreadFigure(buttonDownRight,buttonDownLeft,console,Color.LIGHTGREEN,"Green");
+        blue = new ThreadFigure(buttonDownLeft,buttonLeft,console,Color.BLUE,"Blue");
+
+        threads= new ThreadFigure[]{red, yellow, purple, green, blue};
+    }
+
+    private void reset(){
+        for (ThreadFigure thread :threads) {
+            thread.reset();
+        }
+        console.setText("");
+    }
 
 
 }

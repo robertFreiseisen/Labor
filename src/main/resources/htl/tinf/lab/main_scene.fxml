@@ -24,14 +24,14 @@
       <Circle fx:id="buttonDownLeft" layoutX="304.0" layoutY="320.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
       <AnchorPane layoutX="794.0" layoutY="-23.0" prefHeight="743.0" prefWidth="210.0" style="-fx-border-color: black;">
          <children>
-            <Button fx:id="button_algoRandom" layoutX="43.0" layoutY="81.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="125.0" text="RAD" />
-            <Button fx:id="stop" layoutX="43.0" layoutY="603.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="125.0" text="STOP" />
-            <Button fx:id="button_algoSoluotion" layoutX="43.0" layoutY="390.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="125.0" text="SL" />
-            <Button fx:id="button_algoDeadLock" layoutX="43.0" layoutY="245.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="125.0" text="DL" />
+            <Button fx:id="button_algoRandom" layoutX="43.0" layoutY="81.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="125.0" text="Random" />
+            <Button fx:id="stop" layoutX="43.0" layoutY="603.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="125.0" text="Restart" />
+            <Button fx:id="button_algoSoluotion" layoutX="43.0" layoutY="390.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="125.0" text="Solution" />
+            <Button fx:id="button_algoDeadLock" layoutX="43.0" layoutY="245.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="125.0" text="Dead Lock" />
          </children></AnchorPane>
       <AnchorPane layoutX="-39.0" layoutY="512.0" prefHeight="207.0" prefWidth="834.0" style="-fx-border-color: black;">
          <children>
-            <TextArea layoutX="39.0" layoutY="-3.0" prefHeight="207.0" prefWidth="793.0" />
+            <TextArea fx:id="console" layoutX="39.0" layoutY="-3.0" prefHeight="207.0" prefWidth="793.0" />
          </children></AnchorPane>
    </children>
 </AnchorPane>
