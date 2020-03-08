@@ -2,27 +2,25 @@ package htl.tinf.lab;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.concurrent.ThreadLocalRandom;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
 
 public class MainController implements Initializable {
 
@@ -77,15 +75,11 @@ public class MainController implements Initializable {
 
         console.setEditable(false);
         console.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        console.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        //shuffle thread array
+        threads = createThreads();
+        shuffleArray(threads);
 
-        createThreads();
-
-
-        red.run();
-        yellow.run();
-        purple.run();
-        green.run();
-        blue.run();
 
         stop.setOnAction(a -> {
          reset();
@@ -97,6 +91,15 @@ public class MainController implements Initializable {
 
         button_algoRandom.setOnAction(a -> {
             reset();
+            shuffleArray(threads);
+            //make random shuffled thread array
+
+            for (ThreadFigure thread :threads) {
+                thread.run();
+            }
+
+
+
         });
 
         button_algoDeadLock.setOnAction(a -> {
@@ -104,6 +107,8 @@ public class MainController implements Initializable {
             for (ThreadFigure thread :threads) {
                 thread.deadLock();
             }
+            console.appendText("=================\n" +
+                    "Deadlock : Red,Yellow,Purple,Green,Blue warten.");
         });
 
     }
@@ -113,7 +118,7 @@ public class MainController implements Initializable {
         return image;
     }
 
-    private void createThreads(){
+    private ThreadFigure[] createThreads(){
         /*
         ThreadFigure red;
         ThreadFigure yellow;
@@ -128,7 +133,7 @@ public class MainController implements Initializable {
         green = new ThreadFigure(buttonDownRight,buttonDownLeft,console,Color.LIGHTGREEN,"Green");
         blue = new ThreadFigure(buttonDownLeft,buttonLeft,console,Color.BLUE,"Blue");
 
-        threads= new ThreadFigure[]{red, yellow, purple, green, blue};
+       return new ThreadFigure[]{red, yellow, purple, green, blue};
     }
 
     private void reset(){
@@ -138,5 +143,18 @@ public class MainController implements Initializable {
         console.setText("");
     }
 
-
+    static void shuffleArray(ThreadFigure[] ar)
+    {
+        // If running on Java 6 or older, use `new Random()` on RHS here
+        Random rnd = ThreadLocalRandom.current();
+        for (int i = ar.length - 1; i > 0; i--)
+        {
+            int index = rnd.nextInt(i + 1);
+            // Simple swap
+            ThreadFigure a = ar[index];
+            ar[index] = ar[i];
+            ar[i] = a;
+        }
+    }
 }
+

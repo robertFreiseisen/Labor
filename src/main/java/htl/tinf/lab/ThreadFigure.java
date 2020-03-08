@@ -25,11 +25,63 @@ public class ThreadFigure  extends Thread {
 
     @Override
     public void run() {
+        /*
+        //create a random time when the figure wants to press the buttons
+        int starttime = (int) (Math.random()*((3000-1000)+1))+1000;
+        int timeBetweenPresses =1000;
+
+
+        //sleep the waiting time
+        try {
+            Thread.sleep(starttime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //press the left button
+        if (!(left.getFill() == Color.BLACK)) {
+            //button already pressed from other figure
+            console.appendText(name +" kann den linken Knopf nicht drücken");
+        }else {
+            left.setFill(color);
+            console.appendText(name + " hat den linken Knopf gedürckt\n");
+        }
+        //wait
+        try {
+            Thread.sleep(timeBetweenPresses);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        //press the right button
+        if (!(right.getFill() == Color.BLACK)) {
+            //button already pressed from other figure
+            console.appendText(name +" kann den rechten Knopf nicht drücken");
+        }else {
+            right.setFill(color);
+            console.appendText(name + " hat den rechten Knopf gedürckt\n");
+        }
+
+         */
+        if(right.getFill()==Color.BLACK) {
+            right.setFill(color);
+            console.appendText(name + " hat den rechten Knopf gedürckt.\n");
+
+            if(left.getFill()==Color.BLACK) {
+                left.setFill(color);
+                console.appendText(name + " hat den linken Knopf gedürckt.\n");
+            }
+        }else {
+            console.appendText(name + " konnte den rechten Knopf nicht drücken.\n");
+        }
+
+
     }
 
     public void deadLock(){
-        right.setFill(color);
-        console.appendText(name + " hat den rechten Knopf gedürckt\n");
+        left.setFill(color);
+        console.appendText(name + " hat den linken Knopf gedürckt\n");
     }
 
     public void reset(){
