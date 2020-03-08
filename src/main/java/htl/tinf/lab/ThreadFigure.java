@@ -49,6 +49,7 @@ public class ThreadFigure  extends Thread {
             console.appendText(name+" Hat den rechten Knopf gedrückt\n");
         }else {
             console.appendText(name+" Konnte den rechten Knopf NICHT drücken\n");
+        //
         }
     }
 
