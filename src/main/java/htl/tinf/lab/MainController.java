@@ -112,18 +112,7 @@ public class MainController implements Initializable {
         });
 
         button_algoRandom.setOnAction(a -> {
-            reset();
-            previousTime = System.currentTimeMillis();
-            consoleHeader();
-            shuffleThreads(threads);
-            //make random shuffled thread array
-
-            for (ThreadFigure thread : threads) {
-                thread.run();
-            }
-
-            waitAllThreads();
-            console.appendText("============================================================================\n\n\n");
+          rndm();
 
         });
 
@@ -141,6 +130,65 @@ public class MainController implements Initializable {
         });
 
     }
+
+    private void rndm(){
+        reset();
+        previousTime = System.currentTimeMillis();
+        consoleHeader();
+        shuffleThreads(threads);
+        //make random shuffled thread array
+
+        for (ThreadFigure thread : threads) {
+            thread.run();
+        }
+
+        boolean everyThreadPressed=true;
+        for (ThreadFigure thread : threads) {
+            if(!(thread.getButtonCount()==1)) {
+                everyThreadPressed=false;
+            }
+        }
+        if(everyThreadPressed) {
+            console.appendText("============================================================================\n" +
+                    "Deadlock : Red,Yellow,Purple,Green,Blue warten.\n\n\n");
+        }else {
+        }
+
+
+        console.appendText("============================================================================\n\n\n");
+    }
+
+    private  void rndmLoop(){
+        boolean deadlock =false;
+        while(deadlock) {
+            sleep(50);
+            reset();
+            previousTime = System.currentTimeMillis();
+            consoleHeader();
+            shuffleThreads(threads);
+            //make random shuffled thread array
+
+            for (ThreadFigure thread : threads) {
+                thread.run();
+            }
+
+            deadlock = true;
+            for (ThreadFigure thread : threads) {
+                if (!(thread.getButtonCount() == 1)) {
+                    deadlock = false;
+                }
+            }
+            if (deadlock) {
+                console.appendText("============================================================================\n" +
+                        "Deadlock : Red,Yellow,Purple,Green,Blue warten.\n\n\n");
+            } else {
+            }
+
+
+            console.appendText("============================================================================\n\n\n");
+        }
+    }
+
 
     private ThreadFigureSync[] createSyncedThreads() {
         redSync = new ThreadFigureSync(buttonLeft, buttonTop, console, Color.RED, "Red   :");
@@ -218,6 +266,14 @@ public class MainController implements Initializable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void sleep(int milli){
+        try {
+            Thread.sleep(milli);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
