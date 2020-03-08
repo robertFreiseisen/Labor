@@ -5,16 +5,26 @@ import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+
 import java.util.Collection;
 
 public class ThreadFigure  extends Thread {
 
+    //the 2 circles aka buttons on the table
     private Circle right;
     private Circle left;
+
+    //the console on the bottom
     private TextArea console;
+    //individual values of the thread
     private Color color;
     private String name;
-    private int pressedButtonCound =0;
+    //visualzing the amount of pressed buttons
+    private int pressedButtonCount =0;
+    private TextArea headText;
+
+    public double elapsedTime;
 
     ThreadFigure(Circle right, Circle left, TextArea console, Color color,String name) {
     this.right=right;
@@ -24,78 +34,62 @@ public class ThreadFigure  extends Thread {
     this.name = name;
     }
 
+
     @Override
     public void run() {
-        /*
-        //create a random time when the figure wants to press the buttons
-        int starttime = (int) (Math.random()*((3000-1000)+1))+1000;
-        int timeBetweenPresses =1000;
-
-
-        //sleep the waiting time
-        try {
-            Thread.sleep(starttime);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        //press the left button
-        if (!(left.getFill() == Color.BLACK)) {
-            //button already pressed from other figure
-            console.appendText(name +" kann den linken Knopf nicht drücken");
-        }else {
+        sleep(1);
+        if(left.getFill()==Color.BLACK) {
             left.setFill(color);
-            console.appendText(name + " hat den linken Knopf gedürckt\n");
-        }
-        //wait
-        try {
-            Thread.sleep(timeBetweenPresses);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            elapsedTime = (System.currentTimeMillis() - MainController.previousTime);
+            if(elapsedTime>10)
+            console.appendText("* "+name + " hat den linken Knopf gedürckt.                             *" + elapsedTime+"ms\n");
+            pressedButtonCount++;
+            sleep(1);
 
-
-        //press the right button
-        if (!(right.getFill() == Color.BLACK)) {
-            //button already pressed from other figure
-            console.appendText(name +" kann den rechten Knopf nicht drücken");
-        }else {
-            right.setFill(color);
-            console.appendText(name + " hat den rechten Knopf gedürckt\n");
-        }
-
-         */
-        if(right.getFill()==Color.BLACK) {
-            right.setFill(color);
-            console.appendText(name + " hat den rechten Knopf gedürckt.\n");
-            pressedButtonCound++;
-
-            if(left.getFill()==Color.BLACK) {
+            if(right.getFill()==Color.BLACK) {
                 left.setFill(color);
-                console.appendText(name + " hat den linken Knopf gedürckt.\n");
-                pressedButtonCound++;
+                elapsedTime = (System.currentTimeMillis() - MainController.previousTime);
+                console.appendText("* "+name + " hat den rechten Knopf gedürckt.                            *"+ elapsedTime+"ms\n");
+                pressedButtonCount++;
+                sleep(1);
+            }else {
+                elapsedTime = (System.currentTimeMillis() - MainController.previousTime);
+                console.appendText("* "+name + " konnte den rechten Knopf nicht mehr drücken.               *"+ elapsedTime+"ms\n");
+                sleep(1);
             }
         }else {
-            console.appendText(name + " konnte den rechten Knopf nicht drücken.\n");
+            elapsedTime = (System.currentTimeMillis() - MainController.previousTime);
+            console.appendText("* "+name + " konnte den linken Knopf nicht drücken. "+ elapsedTime+"ms\n");
+            sleep(1);
         }
-
-        setButtonCount(pressedButtonCound);
-
-
+        setButtonCount(pressedButtonCount);
     }
 
-    private void setButtonCount(int pressedButtonCound) {
-
+    //set the value of pressed buttons inside the head of the figure
+    private void setButtonCount(int pressedButtonCount) {
+        //headText.setText(pressedButtonCound+"");
     }
 
+    //will be called when the deadlock button was pressed
     public void deadLock(){
         left.setFill(color);
-        console.appendText(name + " hat den linken Knopf gedürckt\n");
+        sleep(1);
+        elapsedTime = (System.currentTimeMillis() - MainController.previousTime);
+        console.appendText(name + " hat den linken Knopf gedürckt                               *"+ elapsedTime +"ms\n");
     }
 
+    //will be called when the reset button was pressed
     public void reset(){
         right.setFill(Color.BLACK);
         left.setFill(Color.BLACK);
+        pressedButtonCount=0;
+    }
+    private void sleep(int milli){
+        try {
+            Thread.sleep(milli);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
