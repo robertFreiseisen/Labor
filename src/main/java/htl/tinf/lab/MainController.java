@@ -69,7 +69,6 @@ public class MainController implements Initializable {
     ThreadFigureSync greenSync;
     ThreadFigureSync blueSync;
 
-    static long previousTime;
 
 
 
@@ -98,7 +97,6 @@ public class MainController implements Initializable {
 
         button_algoSoluotion.setOnAction(a -> {
             reset();
-            previousTime = System.currentTimeMillis();
             console.setText("Mhh, die Threads haben bisher noch keine Friedliche\nLösung gefunden dieses Problem zu lösen.\n");
             shuffleSyncedThreads(threadsSync);
             // TODO: 08/03/2020
@@ -118,7 +116,6 @@ public class MainController implements Initializable {
 
         button_algoDeadLock.setOnAction(a -> {
             reset();
-            previousTime = System.currentTimeMillis();
             consoleHeader();
             for (ThreadFigure thread : threads) {
                 thread.deadLock();
@@ -133,7 +130,6 @@ public class MainController implements Initializable {
 
     private void rndm(){
         reset();
-        previousTime = System.currentTimeMillis();
         consoleHeader();
         shuffleThreads(threads);
         //make random shuffled thread array
@@ -157,38 +153,6 @@ public class MainController implements Initializable {
 
         console.appendText("============================================================================\n\n\n");
     }
-
-    private  void rndmLoop(){
-        boolean deadlock =false;
-        while(deadlock) {
-            sleep(50);
-            reset();
-            previousTime = System.currentTimeMillis();
-            consoleHeader();
-            shuffleThreads(threads);
-            //make random shuffled thread array
-
-            for (ThreadFigure thread : threads) {
-                thread.run();
-            }
-
-            deadlock = true;
-            for (ThreadFigure thread : threads) {
-                if (!(thread.getButtonCount() == 1)) {
-                    deadlock = false;
-                }
-            }
-            if (deadlock) {
-                console.appendText("============================================================================\n" +
-                        "Deadlock : Red,Yellow,Purple,Green,Blue warten.\n\n\n");
-            } else {
-            }
-
-
-            console.appendText("============================================================================\n\n\n");
-        }
-    }
-
 
     private ThreadFigureSync[] createSyncedThreads() {
         redSync = new ThreadFigureSync(buttonLeft, buttonTop, console, Color.RED, "Red   :");

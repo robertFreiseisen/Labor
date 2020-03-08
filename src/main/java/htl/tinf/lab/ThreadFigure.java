@@ -39,16 +39,16 @@ public class ThreadFigure  extends Thread {
     public void run() {
         if(left.getFill().equals(Color.BLACK)) {
             left.setFill(color);
-            console.appendText(name+" hat den linken Knopf gedrückt\n");
+            console.appendText(name+" Hat den linken Knopf gedrückt\n");
         }else {
-            console.appendText(name+" konnte den linken Knopf NICHT drücken\n");
+            console.appendText(name+" Konnte den linken Knopf NICHT drücken\n");
         }
 
         if(right.getFill().equals(Color.BLACK)) {
             right.setFill(color);
-            console.appendText(name+" hat den rechten Knopf gedrückt\n");
+            console.appendText(name+" Hat den rechten Knopf gedrückt\n");
         }else {
-            console.appendText(name+" konnte den rechten Knopf NICHT drücken\n");
+            console.appendText(name+" Konnte den rechten Knopf NICHT drücken\n");
         }
     }
 
