@@ -14,6 +14,7 @@ public class ThreadFigure  extends Thread {
     private TextArea console;
     private Color color;
     private String name;
+    private int pressedButtonCound =0;
 
     ThreadFigure(Circle right, Circle left, TextArea console, Color color,String name) {
     this.right=right;
@@ -67,15 +68,23 @@ public class ThreadFigure  extends Thread {
         if(right.getFill()==Color.BLACK) {
             right.setFill(color);
             console.appendText(name + " hat den rechten Knopf gedürckt.\n");
+            pressedButtonCound++;
 
             if(left.getFill()==Color.BLACK) {
                 left.setFill(color);
                 console.appendText(name + " hat den linken Knopf gedürckt.\n");
+                pressedButtonCound++;
             }
         }else {
             console.appendText(name + " konnte den rechten Knopf nicht drücken.\n");
         }
 
+        setButtonCount(pressedButtonCound);
+
+
+    }
+
+    private void setButtonCount(int pressedButtonCound) {
 
     }
 
