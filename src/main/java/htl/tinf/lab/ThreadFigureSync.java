@@ -30,6 +30,24 @@ public class ThreadFigureSync extends Thread {
     @Override
     public void run() {
         //TODO  DO SOMETHING SYNCED HERE
+        sleep((int)(Math.random() * ((15 - 1) + 1)) + 1);
+        if(left.getFill().equals(Color.BLACK)) {
+            left.setFill(color);
+            console.appendText(name+" Hat den linken Knopf gedrückt\n");
+
+            sleep((int)(Math.random() * ((15 - 1) + 1)) + 1);
+            if(right.getFill().equals(Color.BLACK)) {
+                right.setFill(color);
+                console.appendText(name+" Hat den rechten Knopf gedrückt\n");
+            }else {
+                console.appendText(name+" Konnte den rechten Knopf NICHT drücken\n");
+            }
+
+        }else {
+            console.appendText(name+" Konnte den linken Knopf NICHT drücken und gibt auf.\n");
+        }
+
+
     }
 
     //set the value of pressed buttons inside the head of the figure
@@ -50,6 +68,13 @@ public class ThreadFigureSync extends Thread {
         pressedButtonCount=0;
     }
 
+    private void sleep(int milli){
+        try {
+            Thread.sleep(milli);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

@@ -13,6 +13,7 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -39,6 +40,9 @@ public class MainController implements Initializable {
     ImageView purplePhilosopher;
     @FXML
     ImageView redPhilosopher;
+
+    @FXML
+    AnchorPane philoPane;
 
     @FXML
     Circle buttonTop;
@@ -84,6 +88,7 @@ public class MainController implements Initializable {
         console.setEditable(false);
         console.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
         console.setStyle("-fx-control-inner-background:#000000; -fx-font-family: Consolas; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; -fx-text-fill: #00ff00; ");
+
         //shuffle thread array
         threads = createThreads();
         threadsSync = createSyncedThreads();
@@ -97,7 +102,7 @@ public class MainController implements Initializable {
 
         button_algoSoluotion.setOnAction(a -> {
             reset();
-            console.setText("Mhh, die Threads haben bisher noch keine Friedliche\nLösung gefunden dieses Problem zu lösen.\n");
+            //console.setText("Mhh, die Threads haben bisher noch keine Friedliche\nLösung gefunden dieses Problem zu lösen.\n");
             shuffleSyncedThreads(threadsSync);
             // TODO: 08/03/2020
 
@@ -117,13 +122,19 @@ public class MainController implements Initializable {
         button_algoDeadLock.setOnAction(a -> {
             reset();
             consoleHeader();
+            shuffleThreads(threads);
             for (ThreadFigure thread : threads) {
-                thread.deadLock();
+                thread.left();
+            }
+
+            shuffleThreads(threads);
+            for (ThreadFigure thread : threads) {
+                thread.right();
             }
 
             waitAllThreads();
             console.appendText("============================================================================\n" +
-                    "Deadlock : Red,Yellow,Purple,Green,Blue warten.\n\n\n");
+                    "Deadlock : Red,Yellow,Purple,Green,Blue warten.");
         });
 
     }
@@ -222,6 +233,7 @@ public class MainController implements Initializable {
         console.appendText("Research Button Problem\n");
         console.appendText("***********************\n");
     }
+
 
     private void waitAllThreads() {
         for (ThreadFigure thread : threads) {

@@ -49,7 +49,6 @@ public class ThreadFigure  extends Thread {
             console.appendText(name+" Hat den rechten Knopf gedrückt\n");
         }else {
             console.appendText(name+" Konnte den rechten Knopf NICHT drücken\n");
-        //
         }
     }
 
@@ -80,5 +79,23 @@ public class ThreadFigure  extends Thread {
         right.setFill(Color.BLACK);
                 left.setFill(Color.BLACK);
                 pressedButtonCount=0;
+    }
+
+    public void left(){
+        if(left.getFill().equals(Color.BLACK)) {
+            left.setFill(color);
+            console.appendText(name+" Hat den linken Knopf gedrückt\n");
+        }else {
+            console.appendText(name+" Konnte den linken Knopf NICHT drücken\n");
+        }
+    }
+
+    public void right(){
+        if(right.getFill().equals(Color.BLACK)) {
+            right.setFill(color);
+            console.appendText(name+" Hat den rechten Knopf gedrückt\n");
+        }else {
+            console.appendText(name+" Konnte den rechten Knopf NICHT drücken\n");
+        }
     }
 }
